@@ -1,0 +1,14 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": "Mi primer backend con mongo y express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ricardo Ramos",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
