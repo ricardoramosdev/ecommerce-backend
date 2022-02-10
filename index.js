@@ -1,9 +1,23 @@
 var express = require('express');
 var app = express();
+var port = 3000;
+const password = 'milanga'
+var URL = `mongodb+srv://ricardo:${password}@cluster0.oqwkc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+var mongoose = require('mongoose');
 
-app.listen(3000, ()=>{
-    console.log('Servidor esta corriendo');
-})
- app.get('/hello', function(req, res){
-     res.send('hello world');
- });
+(async function connect() {
+    try {
+        await mongoose.connect(URL);
+        console.log(`\x1b[36m Connected to MongoDB \x1b[37m`)
+        app.listen(port, () => {
+            console.log(`\x1b[39m Server escuchando el puerto :${port} \x1b[37m`)
+        });
+    } catch (err) {
+        console.log('\x1b[31m Error al conectar con MongoDB \x1b[37m');
+
+    }
+})()
+
+app.get('/', function (req, res) {
+    res.send('El servidor esta respondiendo correctamente mundo');
+});
