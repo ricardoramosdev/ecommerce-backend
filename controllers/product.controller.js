@@ -20,36 +20,45 @@ async function listProducts(req, res) {
     })
 }
 
-// async function getProduct(req, res) {
-//     //Id que recibimos como query param desde el endpoint
-//     const ProductId = req.query.id;
-//     //Buscamos espeficamente ese id en nuestra coleccion Products
-//     const Product = await Product.findById(ProductId);
-//     console.log(Product)
-//     if (!Product) return res.status(404).send('El usuario no se encuentra')
-//     //const id = req.params.Product_id
-//     return res.send({
-//         Product
-//     });
-// }
+async function getProduct(req, res) {
+    try{
+        
+        //Id que recibimos como query param desde el endpoint
+        const ProductId = req.query.id;
+        //Buscamos espeficamente ese id en nuestra coleccion Products
+        const product = await Product.findById(ProductId);
+        if (!product) return res.status(404).send('El Producto no se encuentra')
+        //const id = req.params.Product_id
+        return res.status(200).send({
+            product
+        });
+    }
+    catch(error){
+        res.status(400).send(error)
+    }
+}
 
-// async function deleteProduct(req, res) {
-//     const ProductId = req.query.id;
-//     const Product = await Product.findByIdAndDelete(ProductId);
-//     res.status(200).send(`Usuarios ${Product.fullName} borrado`)
-// }
 
-// async function updateProduct(req, res) {
-//     const id = req.params.id;
-//     const ProductChanges = req.body;
-//     const updatedProduct = await Product.findByIdAndUpdate(id, ProductChanges, {
-//         new: true
-//     })
-//     if (!updatedProduct) return res.status(404).send('No se encontro el ususario')
-//     return res.status(200).send(updatedProduct)
-// }
+async function deleteProduct(req, res) {
+    const ProductId = req.query.id;
+    const product = await Product.findByIdAndDelete(ProductId);
+    res.status(200).send(`Producto ${product.name} borrado`)
+}
+
+async function updateProduct(req, res) {
+    const ProductId = req.query.id;
+    const ProductChanges = req.body;
+    const updatedProduct = await Product.findByIdAndUpdate(ProductId, ProductChanges, {
+        new: true
+    })
+    if (!updatedProduct) return res.status(404).send('No se encontro el producto a editar')
+    return res.status(200).send(updatedProduct)
+}
 
 module.exports = {
-    addProduct,
-    listProducts
+    addProduct,  //Create
+    listProducts,//Read
+    getProduct, //Read
+    deleteProduct,//Delete
+    updateProduct//Update
 }
