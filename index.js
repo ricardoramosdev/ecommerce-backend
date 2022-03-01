@@ -1,5 +1,4 @@
-var express = require('express');
-var app = express();
+var app = require('./app');
 var port = 3000;
 const password = 'milanga'
 var URL = `mongodb+srv://ricardo:${password}@cluster0.oqwkc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
@@ -17,7 +16,3 @@ var mongoose = require('mongoose');
 
     }
 })()
-
-app.get('/', function (req, res) {
-    res.send('El servidor esta respondiendo correctamente mundo');
-});
